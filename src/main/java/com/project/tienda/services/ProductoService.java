@@ -68,6 +68,7 @@ public class ProductoService {
         return productoRepository.save(productoDB);
     }
 
+
     public void eliminar(Long id) {
         productoRepository.deleteById(id);
     }
