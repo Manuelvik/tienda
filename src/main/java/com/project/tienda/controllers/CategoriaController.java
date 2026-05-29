@@ -38,6 +38,7 @@ public class CategoriaController {
                 categoriaDTO);
     }
 
+
     @PutMapping("/{id}")
     public Categoria actualizar(
             @PathVariable Long id,
