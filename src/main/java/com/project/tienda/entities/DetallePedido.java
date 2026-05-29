@@ -63,6 +63,7 @@ public class DetallePedido {
         return producto;
     }
 
+
     public void setProducto(
             Producto producto){
         this.producto=producto;
