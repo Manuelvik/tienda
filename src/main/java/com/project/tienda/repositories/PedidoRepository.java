@@ -13,6 +13,9 @@ public interface PedidoRepository
 
     List<Pedido> findByUsuarioId(Long usuarioId);
 
+
+
+
     @Query("""
             SELECT p
             FROM Pedido p

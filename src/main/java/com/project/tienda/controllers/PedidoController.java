@@ -21,6 +21,7 @@ public class PedidoController {
         return pedidoService.listar();
     }
 
+
     @GetMapping("/{id}")
     public Pedido buscar(@PathVariable Long id) {
         return pedidoService.buscarPorId(id);
@@ -31,6 +32,7 @@ public class PedidoController {
 
         return pedidoService.buscarPorEstado(estado);
     }
+
 
     @GetMapping("/total-ventas")
     public Double totalVentas() {
