@@ -45,6 +45,7 @@ public class UsuarioDTO {
         return rol;
     }
 
+
     public void setRol(String rol) {
         this.rol = rol;
     }
