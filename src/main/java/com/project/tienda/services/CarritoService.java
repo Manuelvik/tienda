@@ -7,7 +7,7 @@ import com.project.tienda.entities.Usuario;
 import com.project.tienda.repositories.CarritoRepository;
 import com.project.tienda.repositories.ProductoRepository;
 import com.project.tienda.repositories.UsuarioRepository;
-
+import com.project.tienda.exceptions.RecursoNoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -71,9 +71,10 @@ public class CarritoService {
             CarritoDTO carritoDTO) {
 
         Carrito carritoDB =
-                carritoRepository
-                        .findById(id)
-                        .orElseThrow();
+                carritoRepository.findById(id)
+                        .orElseThrow(() ->
+                                new RecursoNoEncontradoException(
+                                        "Elemento del carrito no encontrado"));
 
         carritoDB.setCantidad(
                 carritoDTO.getCantidad());

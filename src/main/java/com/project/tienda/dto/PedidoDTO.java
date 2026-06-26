@@ -4,13 +4,15 @@ public class PedidoDTO {
 
     private Double total;
     private Long usuarioId;
+    private String estado;
 
     public PedidoDTO() {
     }
 
-    public PedidoDTO(Double total, Long usuarioId) {
+    public PedidoDTO(Double total, Long usuarioId, String estado) {
         this.total = total;
         this.usuarioId = usuarioId;
+        this.estado = estado;
     }
 
     public Double getTotal() {
@@ -27,5 +29,13 @@ public class PedidoDTO {
 
     public void setUsuarioId(Long usuarioId) {
         this.usuarioId = usuarioId;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

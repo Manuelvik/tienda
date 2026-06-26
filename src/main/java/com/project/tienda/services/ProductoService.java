@@ -5,7 +5,7 @@ import com.project.tienda.entities.Categoria;
 import com.project.tienda.entities.Producto;
 import com.project.tienda.repositories.CategoriaRepository;
 import com.project.tienda.repositories.ProductoRepository;
-
+import com.project.tienda.exceptions.RecursoNoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,9 @@ public class ProductoService {
 
     public Producto buscarPorId(Long id) {
         return productoRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() ->
+                        new RecursoNoEncontradoException(
+                                "Producto no encontrado"));
     }
 
     public List<Producto> buscarPorNombre(String nombre) {

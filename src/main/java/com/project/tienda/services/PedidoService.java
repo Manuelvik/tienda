@@ -5,9 +5,10 @@ import com.project.tienda.entities.Pedido;
 import com.project.tienda.entities.Usuario;
 import com.project.tienda.repositories.PedidoRepository;
 import com.project.tienda.repositories.UsuarioRepository;
-
+import com.project.tienda.exceptions.RecursoNoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.project.tienda.dto.ActualizarEstadoPedidoDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -27,7 +28,9 @@ public class PedidoService {
 
     public Pedido buscarPorId(Long id) {
         return pedidoRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() ->
+                        new RecursoNoEncontradoException(
+                                "Pedido no encontrado"));
     }
 
     public List<Pedido> listarPorUsuario(Long usuarioId) {
@@ -52,9 +55,15 @@ public class PedidoService {
     public Pedido actualizar(Long id, PedidoDTO pedidoDTO) {
 
         Pedido pedidoDB = pedidoRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() ->
+                        new RecursoNoEncontradoException(
+                                "Pedido no encontrado"));
 
         pedidoDB.setTotal(pedidoDTO.getTotal());
+
+        if (pedidoDTO.getEstado() != null) {
+            pedidoDB.setEstado(pedidoDTO.getEstado());
+        }
 
         return pedidoRepository.save(pedidoDB);
     }
@@ -69,5 +78,19 @@ public class PedidoService {
     public Double totalVentas() {
         Double total = pedidoRepository.totalVentas();
         return total != null ? total : 0.0;
+    }
+
+    public Pedido actualizarEstado(
+            Long id,
+            ActualizarEstadoPedidoDTO dto) {
+
+        Pedido pedidoDB = pedidoRepository.findById(id)
+                .orElseThrow(() ->
+                        new RecursoNoEncontradoException(
+                                "Pedido no encontrado"));
+
+        pedidoDB.setEstado(dto.getEstado());
+
+        return pedidoRepository.save(pedidoDB);
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import com.project.tienda.dto.ActualizarEstadoPedidoDTO;
 
 @RestController
 @RequestMapping("/pedidos")
@@ -61,5 +62,12 @@ public class PedidoController {
     public String eliminar(@PathVariable Long id) {
         pedidoService.eliminar(id);
         return "Pedido eliminado";
+    }
+    @PutMapping("/{id}/estado")
+    public Pedido actualizarEstado(
+            @PathVariable Long id,
+            @RequestBody ActualizarEstadoPedidoDTO dto) {
+
+        return pedidoService.actualizarEstado(id, dto);
     }
 }

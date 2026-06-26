@@ -69,6 +69,10 @@ public class AuthController {
                         usuario.getRol()
                 );
 
-        return new AuthResponse(token);
+        return new AuthResponse(
+                token,
+                usuario.getId(),
+                usuario.getRol()
+        );
     }
 }

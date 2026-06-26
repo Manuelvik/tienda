@@ -7,7 +7,7 @@ import com.project.tienda.entities.Producto;
 import com.project.tienda.repositories.DetallePedidoRepository;
 import com.project.tienda.repositories.PedidoRepository;
 import com.project.tienda.repositories.ProductoRepository;
-
+import com.project.tienda.exceptions.RecursoNoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,10 +36,14 @@ public class DetallePedidoService {
     public DetallePedido guardar(DetallePedidoDTO detallePedidoDTO) {
 
         Pedido pedido = pedidoRepository.findById(detallePedidoDTO.getPedidoId())
-                .orElseThrow();
+                .orElseThrow(() ->
+                        new RecursoNoEncontradoException(
+                                "Pedido no encontrado"));
 
         Producto producto = productoRepository.findById(detallePedidoDTO.getProductoId())
-                .orElseThrow();
+                .orElseThrow(() ->
+                        new RecursoNoEncontradoException(
+                                "Producto no encontrado"));
 
         DetallePedido detalle = new DetallePedido();
 

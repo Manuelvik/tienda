@@ -3,7 +3,7 @@ package com.project.tienda.services;
 import com.project.tienda.dto.UsuarioDTO;
 import com.project.tienda.entities.Usuario;
 import com.project.tienda.repositories.UsuarioRepository;
-
+import com.project.tienda.exceptions.RecursoNoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,9 @@ public class UsuarioService {
 
     public Usuario buscarPorId(Long id) {
         return usuarioRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() ->
+                        new RecursoNoEncontradoException(
+                                "Usuario no encontrado"));
     }
 
     public Usuario guardar(UsuarioDTO usuarioDTO) {

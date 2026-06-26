@@ -3,7 +3,7 @@ package com.project.tienda.services;
 import com.project.tienda.dto.CategoriaDTO;
 import com.project.tienda.entities.Categoria;
 import com.project.tienda.repositories.CategoriaRepository;
-
+import com.project.tienda.exceptions.RecursoNoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,9 @@ public class CategoriaService {
             Long id) {
 
         return categoriaRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() ->
+                        new RecursoNoEncontradoException(
+                                "Categoría no encontrada"));
     }
 
     public Categoria guardar(
