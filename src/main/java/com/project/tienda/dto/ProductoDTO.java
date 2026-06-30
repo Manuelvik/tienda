@@ -6,18 +6,23 @@ public class ProductoDTO {
     private String descripcion;
     private Double precio;
     private Integer stock;
+    private String imagenUrl;
     private Long categoriaId;
 
     public ProductoDTO() {
     }
 
-    public ProductoDTO(String nombre, String descripcion,
-                       Double precio, Integer stock,
+    public ProductoDTO(String nombre,
+                       String descripcion,
+                       Double precio,
+                       Integer stock,
+                       String imagenUrl,
                        Long categoriaId) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.stock = stock;
+        this.imagenUrl = imagenUrl;
         this.categoriaId = categoriaId;
     }
 
@@ -51,6 +56,14 @@ public class ProductoDTO {
 
     public void setStock(Integer stock) {
         this.stock = stock;
+    }
+
+    public String getImagenUrl() {
+        return imagenUrl;
+    }
+
+    public void setImagenUrl(String imagenUrl) {
+        this.imagenUrl = imagenUrl;
     }
 
     public Long getCategoriaId() {

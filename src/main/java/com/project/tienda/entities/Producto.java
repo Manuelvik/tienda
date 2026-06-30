@@ -18,6 +18,8 @@ public class Producto {
 
     private Integer stock;
 
+    @Column(name = "imagen_url")
+    private String imagenUrl;
 
     @ManyToOne
     @JoinColumn(name="categoria_id")
@@ -31,14 +33,16 @@ public class Producto {
                     String descripcion,
                     Double precio,
                     Integer stock,
+                    String imagenUrl,
                     Categoria categoria) {
 
-        this.id=id;
-        this.nombre=nombre;
-        this.descripcion=descripcion;
-        this.precio=precio;
-        this.stock=stock;
-        this.categoria=categoria;
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.stock = stock;
+        this.imagenUrl = imagenUrl;
+        this.categoria = categoria;
     }
 
     public Long getId() {
@@ -46,7 +50,7 @@ public class Producto {
     }
 
     public void setId(Long id){
-        this.id=id;
+        this.id = id;
     }
 
     public String getNombre(){
@@ -54,7 +58,7 @@ public class Producto {
     }
 
     public void setNombre(String nombre){
-        this.nombre=nombre;
+        this.nombre = nombre;
     }
 
     public String getDescripcion(){
@@ -62,7 +66,7 @@ public class Producto {
     }
 
     public void setDescripcion(String descripcion){
-        this.descripcion=descripcion;
+        this.descripcion = descripcion;
     }
 
     public Double getPrecio(){
@@ -70,7 +74,7 @@ public class Producto {
     }
 
     public void setPrecio(Double precio){
-        this.precio=precio;
+        this.precio = precio;
     }
 
     public Integer getStock(){
@@ -78,7 +82,15 @@ public class Producto {
     }
 
     public void setStock(Integer stock){
-        this.stock=stock;
+        this.stock = stock;
+    }
+
+    public String getImagenUrl() {
+        return imagenUrl;
+    }
+
+    public void setImagenUrl(String imagenUrl) {
+        this.imagenUrl = imagenUrl;
     }
 
     public Categoria getCategoria(){
@@ -86,7 +98,7 @@ public class Producto {
     }
 
     public void setCategoria(Categoria categoria){
-        this.categoria=categoria;
+        this.categoria = categoria;
     }
 
 }

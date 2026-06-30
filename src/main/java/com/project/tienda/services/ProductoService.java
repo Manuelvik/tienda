@@ -39,7 +39,9 @@ public class ProductoService {
 
         Categoria categoria = categoriaRepository
                 .findById(productoDTO.getCategoriaId())
-                .orElseThrow();
+                .orElseThrow(() ->
+                        new RecursoNoEncontradoException(
+                                "Categoría no encontrada"));
 
         Producto producto = new Producto();
 
@@ -47,6 +49,7 @@ public class ProductoService {
         producto.setDescripcion(productoDTO.getDescripcion());
         producto.setPrecio(productoDTO.getPrecio());
         producto.setStock(productoDTO.getStock());
+        producto.setImagenUrl(productoDTO.getImagenUrl());
         producto.setCategoria(categoria);
 
         return productoRepository.save(producto);
@@ -55,25 +58,30 @@ public class ProductoService {
     public Producto actualizar(Long id, ProductoDTO productoDTO) {
 
         Producto productoDB = productoRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() ->
+                        new RecursoNoEncontradoException(
+                                "Producto no encontrado"));
 
         Categoria categoria = categoriaRepository
                 .findById(productoDTO.getCategoriaId())
-                .orElseThrow();
+                .orElseThrow(() ->
+                        new RecursoNoEncontradoException(
+                                "Categoría no encontrada"));
 
         productoDB.setNombre(productoDTO.getNombre());
         productoDB.setDescripcion(productoDTO.getDescripcion());
         productoDB.setPrecio(productoDTO.getPrecio());
         productoDB.setStock(productoDTO.getStock());
+        productoDB.setImagenUrl(productoDTO.getImagenUrl());
         productoDB.setCategoria(categoria);
 
         return productoRepository.save(productoDB);
     }
 
-
     public void eliminar(Long id) {
         productoRepository.deleteById(id);
     }
+
     public List<Producto> buscarPorCategoria(Long categoriaId) {
         return productoRepository.buscarPorCategoria(categoriaId);
     }

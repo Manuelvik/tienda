@@ -19,7 +19,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
-
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
@@ -36,8 +35,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(
-            HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
@@ -45,54 +43,58 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
 
                 .sessionManagement(session ->
-                        session.sessionCreationPolicy(
-                                SessionCreationPolicy.STATELESS
-                        )
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
 
                 .authorizeHttpRequests(auth -> auth
 
+                        // Rutas públicas
                         .requestMatchers(
                                 "/auth/**",
                                 "/swagger-ui/**",
-                                "/v3/api-docs/**"
+                                "/v3/api-docs/**",
+                                "/uploads/**"
                         ).permitAll()
 
-                        .requestMatchers(
-                                HttpMethod.OPTIONS,
-                                "/**"
-                        ).permitAll()
+                        // Preflight de Angular
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        .requestMatchers(
-                                HttpMethod.GET,
-                                "/productos/**"
-                        ).hasAnyRole("ADMIN", "USER")
+                        // Productos
+                        .requestMatchers(HttpMethod.GET, "/productos/**")
+                        .hasAnyRole("ADMIN", "USER")
+
+                        .requestMatchers(HttpMethod.POST, "/productos/imagen")
+                        .hasRole("ADMIN")
 
                         .requestMatchers("/productos/**")
                         .hasRole("ADMIN")
 
+                        // Usuarios
                         .requestMatchers("/usuarios/**")
                         .hasRole("ADMIN")
 
+                        // Categorías
                         .requestMatchers("/categorias/**")
                         .hasRole("ADMIN")
 
+                        // Carrito
                         .requestMatchers("/carrito/**")
                         .hasAnyRole("ADMIN", "USER")
 
+                        // Pedidos
                         .requestMatchers(HttpMethod.PUT, "/pedidos/*/estado")
                         .hasRole("ADMIN")
 
                         .requestMatchers("/pedidos/**")
                         .hasAnyRole("ADMIN", "USER")
 
+                        // Detalle pedido
                         .requestMatchers("/detalle-pedido/**")
                         .hasAnyRole("ADMIN", "USER")
 
+                        // Reportes
                         .requestMatchers("/reportes/**")
                         .hasRole("ADMIN")
-
-
 
                         .anyRequest()
                         .authenticated()
@@ -109,8 +111,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
 
-        CorsConfiguration configuration =
-                new CorsConfiguration();
+        CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(
                 List.of("http://localhost:4200")

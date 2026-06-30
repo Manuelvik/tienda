@@ -40,6 +40,8 @@ public class AuthController {
                 )
         );
 
+        usuario.setRol("USER");
+
         usuarioRepository.save(usuario);
 
         return "Usuario registrado";
