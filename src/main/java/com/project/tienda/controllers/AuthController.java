@@ -76,5 +76,6 @@ public class AuthController {
                 usuario.getId(),
                 usuario.getRol()
         );
+
     }
 }
