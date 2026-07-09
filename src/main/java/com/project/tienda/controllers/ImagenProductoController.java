@@ -54,7 +54,7 @@ public class ImagenProductoController {
 
             Files.copy(imagen.getInputStream(), rutaDestino, StandardCopyOption.REPLACE_EXISTING);
 
-            String urlImagen = "http://localhost:8080/uploads/productos/" + nombreArchivo;
+            String urlImagen = "/uploads/productos/" + nombreArchivo;
 
             Map<String, String> respuesta = new HashMap<>();
             respuesta.put("imagenUrl", urlImagen);
