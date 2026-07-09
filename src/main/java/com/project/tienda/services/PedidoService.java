@@ -49,6 +49,14 @@ public class PedidoService {
         pedido.setTotal(pedidoDTO.getTotal());
         pedido.setUsuario(usuario);
 
+        pedido.setNombreCliente(pedidoDTO.getNombreCliente());
+        pedido.setDni(pedidoDTO.getDni());
+        pedido.setTelefono(pedidoDTO.getTelefono());
+        pedido.setDireccion(pedidoDTO.getDireccion());
+        pedido.setDistrito(pedidoDTO.getDistrito());
+        pedido.setMetodoPago(pedidoDTO.getMetodoPago());
+        pedido.setObservacion(pedidoDTO.getObservacion());
+
         return pedidoRepository.save(pedido);
     }
 
@@ -63,6 +71,34 @@ public class PedidoService {
 
         if (pedidoDTO.getEstado() != null) {
             pedidoDB.setEstado(pedidoDTO.getEstado());
+        }
+
+        if (pedidoDTO.getNombreCliente() != null) {
+            pedidoDB.setNombreCliente(pedidoDTO.getNombreCliente());
+        }
+
+        if (pedidoDTO.getDni() != null) {
+            pedidoDB.setDni(pedidoDTO.getDni());
+        }
+
+        if (pedidoDTO.getTelefono() != null) {
+            pedidoDB.setTelefono(pedidoDTO.getTelefono());
+        }
+
+        if (pedidoDTO.getDireccion() != null) {
+            pedidoDB.setDireccion(pedidoDTO.getDireccion());
+        }
+
+        if (pedidoDTO.getDistrito() != null) {
+            pedidoDB.setDistrito(pedidoDTO.getDistrito());
+        }
+
+        if (pedidoDTO.getMetodoPago() != null) {
+            pedidoDB.setMetodoPago(pedidoDTO.getMetodoPago());
+        }
+
+        if (pedidoDTO.getObservacion() != null) {
+            pedidoDB.setObservacion(pedidoDTO.getObservacion());
         }
 
         return pedidoRepository.save(pedidoDB);
