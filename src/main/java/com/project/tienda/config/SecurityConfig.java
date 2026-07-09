@@ -114,7 +114,8 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(
-                List.of("http://localhost:4200")
+                List.of("http://localhost:4200",
+                        "https://tienda-front-swart.vercel.app")
         );
 
         configuration.setAllowedMethods(
