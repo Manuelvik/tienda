@@ -125,6 +125,19 @@ public class PedidoService {
                         new RecursoNoEncontradoException(
                                 "Pedido no encontrado"));
 
+        List<String> estadosValidos = List.of(
+                "PENDIENTE",
+                "CONFIRMADO",
+                "EN_PREPARACION",
+                "EN_CAMINO",
+                "ENTREGADO",
+                "CANCELADO"
+        );
+
+        if (dto.getEstado() == null || !estadosValidos.contains(dto.getEstado())) {
+            throw new RuntimeException("Estado de pedido no válido");
+        }
+
         pedidoDB.setEstado(dto.getEstado());
 
         return pedidoRepository.save(pedidoDB);
